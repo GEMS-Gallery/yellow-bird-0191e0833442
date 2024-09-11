@@ -1,0 +1,43 @@
+type Time = int;
+type Result_2 = 
+ variant {
+   err: text;
+   ok: Post;
+ };
+type Result_1 = 
+ variant {
+   err: text;
+   ok: Profile;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok;
+ };
+type Profile = 
+ record {
+   followers: List;
+   following: List;
+   username: text;
+ };
+type Post = 
+ record {
+   author: text;
+   content: text;
+   id: nat;
+   timestamp: Time;
+ };
+type List = 
+ opt record {
+       text;
+       List;
+     };
+service : {
+  createPost: (text, text) -> (Result_2);
+  createUser: (text) -> (Result);
+  followUser: (text, text) -> (Result);
+  getPosts: (text) -> (vec Post) query;
+  getProfile: (text) -> (Result_1) query;
+  getTimeline: (text) -> (vec Post) query;
+  unfollowUser: (text, text) -> (Result);
+}
